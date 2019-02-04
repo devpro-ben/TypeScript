@@ -1,24 +1,24 @@
-让我们使用TypeScript来创建一个简单的Web应用。
+讓我們使用TypeScript來創建一個簡單的Web應用程式。
 
-## 安装TypeScript
+## 安裝TypeScript
 
-有两种主要的方式来获取TypeScript工具：
+有兩種主要的方式來獲取TypeScript工具：
 
-* 通过npm（Node.js包管理器）
-* 安装Visual Studio的TypeScript插件
+* 通過npm（Node.js包管理器）
+* 安裝Visual Studio的TypeScript插件
 
-Visual Studio 2017和Visual Studio 2015 Update 3默认包含了TypeScript。
-如果你的Visual Studio还没有安装TypeScript，你可以[下载](/#download-links)它。
+Visual Studio 2017和Visual Studio 2015 Update 3預設包含了TypeScript。
+如果你的Visual Studio還沒有安裝TypeScript，你可以[下載](/#download-links)它。
 
-针对使用npm的用户：
+針對使用npm的用戶：
 
 ```shell
 > npm install -g typescript
 ```
 
-## 构建你的第一个TypeScript文件
+## 構建你的第一個TypeScript檔案
 
-在编辑器，将下面的代码输入到`greeter.ts`文件里：
+在編輯器，將下面的代碼輸入到`greeter.ts`文件裡：
 
 ```ts
 function greeter(person) {
@@ -30,22 +30,22 @@ let user = "Jane User";
 document.body.innerHTML = greeter(user);
 ```
 
-## 编译代码
+## 編譯代碼
 
-我们使用了`.ts`扩展名，但是这段代码仅仅是JavaScript而已。
-你可以直接从现有的JavaScript应用里复制/粘贴这段代码。
+我們使用了`.ts`副檔名，但是這段代碼僅僅是JavaScript而已。
+你可以直接從現有的JavaScript應用裡複製/貼上這段代碼。
 
-在命令行上，运行TypeScript编译器：
+在命令行上，運行TypeScript編譯器：
 
 ```shell
 tsc greeter.ts
 ```
 
-输出结果为一个`greeter.js`文件，它包含了和输入文件中相同的JavsScript代码。
-一切准备就绪，我们可以运行这个使用TypeScript写的JavaScript应用了！
+輸出結果為一個`greeter.js`文件，它包含了和輸入檔案中相同的JavsScript代碼。
+一切準備就緒，我們可以運行這個使用TypeScript寫的JavaScript應用程式了！
 
-接下来让我们看看TypeScript工具带来的高级功能。
-给`person`函数的参数添加`: string`类型注解，如下：
+接下來讓我們看看TypeScript工具帶來的進階功能。
+給`person`函數的參數添加`: string`型別註解，如下：
 
 ```ts
 function greeter(person: string) {
@@ -57,11 +57,11 @@ let user = "Jane User";
 document.body.innerHTML = greeter(user);
 ```
 
-## 类型注解
+## 型別註解
 
-TypeScript里的类型注解是一种轻量级的为函数或变量添加约束的方式。
-在这个例子里，我们希望`greeter`函数接收一个字符串参数。
-然后尝试把`greeter`的调用改成传入一个数组：
+TypeScript裡的型別註解是一種輕量級的為函數或變數添加約束的方式。
+在這個例子裡，我們希望`greeter`函數接收一個字串參數。
+然後嘗試把`greeter`的呼叫改成傳入一個陣列：
 
 ```ts
 function greeter(person: string) {
@@ -73,24 +73,24 @@ let user = [0, 1, 2];
 document.body.innerHTML = greeter(user);
 ```
 
-重新编译，你会看到产生了一个错误。
+重新編譯，你會看到產生了一個錯誤。
 
 ```shell
 error TS2345: Argument of type 'number[]' is not assignable to parameter of type 'string'.
 ```
 
-类似地，尝试删除`greeter`调用的所有参数。
-TypeScript会告诉你使用了非期望个数的参数调用了这个函数。
-在这两种情况中，TypeScript提供了静态的代码分析，它可以分析代码结构和提供的类型注解。
+類似地，嘗試刪除`greeter`呼叫的所有參數。
+TypeScript會告訴你使用了非期望個數的參數呼叫了這個函數。
+在這兩種情況中，TypeScript提供了靜態的代碼分析，它可以分析代碼結構和提供的型別註解。
 
-要注意的是尽管有错误，`greeter.js`文件还是被创建了。
-就算你的代码里有错误，你仍然可以使用TypeScript。但在这种情况下，TypeScript会警告你代码可能不会按预期执行。
+要注意的是儘管有錯誤，`greeter.js`文件還是被創建了。
+就算你的代碼裡有錯誤，你仍然可以使用TypeScript。但在這種情況下，TypeScript會警告你代碼可能不會按預期執行。
 
-## 接口
+## 介面
 
-让我们开发这个示例应用。这里我们使用接口来描述一个拥有`firstName`和`lastName`字段的对象。
-在TypeScript里，只在两个类型内部的结构兼容那么这两个类型就是兼容的。
-这就允许我们在实现接口时候只要保证包含了接口要求的结构就可以，而不必明确地使用`implements`语句。
+讓我們開發這個範例應用程式。這裡我們使用介面來描述一個擁有`firstName`和`lastName`欄位的物件。
+在TypeScript裡，只在兩個型別內部的結構相容那麼這兩個型別就是相容的。
+這就允許我們在實現介面時候只要保證包含了介面要求的結構就可以，而不必明確地使用`implements`敘述。
 
 ```ts
 interface Person {
@@ -107,15 +107,15 @@ let user = { firstName: "Jane", lastName: "User" };
 document.body.innerHTML = greeter(user);
 ```
 
-## 类
+## 類別
 
-最后，让我们使用类来改写这个例子。
-TypeScript支持JavaScript的新特性，比如支持基于类的面向对象编程。
+最後，讓我們使用類別來改寫這個例子。
+TypeScript支持JavaScript的新特性，比如支持基於類別的物件導向編程。
 
-让我们创建一个`Student`类，它带有一个构造函数和一些公共字段。
-注意类和接口可以一起共作，程序员可以自行决定抽象的级别。
+讓我們創建一個`Student`類別，它帶有一個建構函數和一些公開欄位。
+注意類別和介面可以一起工作，程序員可以自行決定抽象的層級。
 
-还要注意的是，在构造函数的参数上使用`public`等同于创建了同名的成员变量。
+還要注意的是，在建構函數的參數上使用`public`等同於創建了同名的成員變數。
 
 ```ts
 class Student {
@@ -139,12 +139,12 @@ let user = new Student("Jane", "M.", "User");
 document.body.innerHTML = greeter(user);
 ```
 
-重新运行`tsc greeter.ts`，你会看到生成的JavaScript代码和原先的一样。
-TypeScript里的类只是JavaScript里常用的基于原型面向对象编程的简写。
+重新運行`tsc greeter.ts`，你會看到生成的JavaScript代碼和原先的一樣。
+TypeScript裡的類別只是JavaScript裡常用的基於原型物件導向編程的簡寫。
 
-## 运行TypeScript Web应用
+## 運行TypeScript Web應用程式
 
-在`greeter.html`里输入如下内容：
+在`greeter.html`裡輸入如下內容：
 
 ```html
 <!DOCTYPE html>
@@ -156,16 +156,16 @@ TypeScript里的类只是JavaScript里常用的基于原型面向对象编程的
 </html>
 ```
 
-在浏览器里打开`greeter.html`运行这个应用！
+在瀏覽器裡打開`greeter.html`運行這個應用程式！
 
-可选地：在Visual Studio里打开`greeter.ts`或者把代码复制到TypeScript playground。
-将鼠标悬停在标识符上查看它们的类型。
-注意在某些情况下它们的类型可以被自动地推断出来。
-重新输入一下最后一行代码，看一下自动补全列表和参数列表，它们会根据DOM元素类型而变化。
-将光标放在`greeter`函数上，点击F12可以跟踪到它的定义。
-还有一点，你可以右键点击标识，使用重构功能来重命名。
+可選地：在Visual Studio裡打開`greeter.ts`或者把代碼複製到TypeScript playground。
+將滑鼠指標懸停在識別字上查看它們的型別。
+注意在某些情況下它們的型別可以被自動地推斷出來。
+重新輸入一下最後一行代碼，看一下自動補全列表和參數列表，它們會根據DOM元素型別而變化。
+將光標放在`greeter`函數上，點擊F12可以跟蹤到它的定義。
+還有一點，你可以右鍵點擊識別字，使用重構功能來重命名。
 
-这些类型信息以及工具可以很好的和JavaScript一起工作。
-更多的TypeScript功能演示，请查看本网站的示例部分。
+這些型別資訊以及工具可以很好的和JavaScript一起工作。
+更多的TypeScript功能演示，請查看本網站的範例部分。
 
-<!--![Visual Studio picture](/assets/images/docs/greet_person.png)-->
+![Visual Studio picture](https://www.typescriptlang.org/assets/images/docs/greet_person.png)
