@@ -1,24 +1,24 @@
-TypeScript不是凭空存在的。
-它从JavaScript生态系统和大量现存的JavaScript而来。
-将JavaScript代码转换成TypeScript虽乏味却不是难事。
-接下来这篇教程将教你怎么做。
-在开始转换TypeScript之前，我们假设你已经理解了足够多本手册里的内容。
+TypeScript不是憑空存在的。
+它從JavaScript生態系統和大量現存的JavaScript而來。
+將JavaScript程式碼轉換成TypeScript雖乏味卻不是難事。
+接下來這篇教學將教您怎麼做。
+在開始轉換TypeScript之前，我們假設您已經理解了足夠多本手冊裡的內容。
 
-如果你打算要转换一个React工程，推荐你先阅读[React转换指南](https://github.com/Microsoft/TypeScript-React-Conversion-Guide#typescript-react-conversion-guide)。
+如果您打算要轉換一個React工程，推薦您先閱讀[React轉換指南](https://github.com/Microsoft/TypeScript-React-Conversion-Guide#typescript-react-conversion-guide)。
 
-# 设置目录
+# 設置目錄
 
-如果你在写纯JavaScript，你大概是想直接运行这些JavaScript文件，
-这些文件存在于`src`，`lib`或`dist`目录里，它们可以按照预想运行。
+如果您在寫純JavaScript，您大概是想直接執行這些JavaScript檔案，
+這些檔案存在於`src`，`lib`或`dist`目錄裡，它們可以按照預想執行。
 
-若如此，那么你写的纯JavaScript文件将做为TypeScript的输入，你将要运行的是TypeScript的输出。
-在从JS到TS的转换过程中，我们会分离输入文件以防TypeScript覆盖它们。
-你也可以指定输出目录。
+若如此，那麼您寫的純JavaScript檔案將做為TypeScript的輸入，您將要執行的是TypeScript的輸出。
+在從JS到TS的轉換程序中，我們會分離輸入檔案以防TypeScript覆蓋它們。
+您也可以指定輸出目錄。
 
-你可能还需要对JavaScript做一些中间处理，比如合并或经过Babel再次编译。
-在这种情况下，你应该已经有了如下的目录结构。
+您可能還需要對JavaScript做一些中間處理，比如合併或經過Babel再次編譯。
+在這種情況下，您應該已經有了如下的目錄結構。
 
-那么现在，我们假设你已经设置了这样的目录结构：
+那麼現在，我們假設您已經設置了這樣的目錄結構：
 
 ```text
 projectRoot
@@ -29,12 +29,12 @@ projectRoot
 └── tsconfig.json
 ```
 
-如果你在`src`目录外还有`tests`文件夹，那么在`src`里可以有一个`tsconfig.json`文件，在`tests`里还可以有一个。
+如果您在`src`目錄外還有`tests`資料夾，那麼在`src`裡可以有一個`tsconfig.json`檔案，在`tests`裡還可以有一個。
 
-# 书写配置文件
+# 書寫組態檔案
 
-TypeScript使用`tsconfig.json`文件管理工程配置，例如你想包含哪些文件和进行哪些检查。
-让我们先创建一个简单的工程配置文件：
+TypeScript使用`tsconfig.json`檔案管理工程組態，例如您想包含哪些檔案和進行哪些檢查。
+讓我們先建立一個簡單的工程組態檔案：
 
 ```json
 {
@@ -49,50 +49,50 @@ TypeScript使用`tsconfig.json`文件管理工程配置，例如你想包含哪�
 }
 ```
 
-这里我们为TypeScript设置了一些东西:
+這裡我們為TypeScript設置了一些東西:
 
-1. 读取所有可识别的`src`目录下的文件（通过`include`）。
-2. 接受JavaScript做为输入（通过`allowJs`）。
-3. 生成的所有文件放在`built`目录下（通过`outDir`）。
-4. 将JavaScript代码降级到低版本比如ECMAScript 5（通过`target`）。
+1. 讀取所有可識別的`src`目錄下的檔案(透過`include`)。
+2. 接受JavaScript做為輸入(透過`allowJs`)。
+3. 產生的所有檔案放在`built`目錄下(透過`outDir`)。
+4. 將JavaScript程式碼降級到低版本比如ECMAScript 5(透過`target`)。
 
-现在，如果你在工程根目录下运行`tsc`，就可以在`built`目录下看到生成的文件。
-`built`下的文件应该与`src`下的文件相同。
-现在你的工程里的TypeScript已经可以工作了。
+現在，如果您在專案根目錄下執行`tsc`，就可以在`built`目錄下看到產生的檔案。
+`built`下的檔案應該與`src`下的檔案相同。
+現在您的專案裡的TypeScript已經可以工作了。
 
 ## 早期收益
 
-现在你已经可以看到TypeScript带来的好处，它能帮助我们理解当前工程。
-如果你打开像[VS Code](https://code.visualstudio.com)或[Visual Studio](https://visualstudio.com)这样的编译器，你就能使用像自动补全这样的工具。
-你还可以配置如下的选项来帮助查找BUG：
+現在您已經可以看到TypeScript帶來的好處，它能幫助我們理解當前工程。
+如果您打開像[VS Code](https://code.visualstudio.com)或[Visual Studio](https://visualstudio.com)這樣的編譯器，您就能使用像自動補全這樣的工具。
+您還可以組態如下的選項來幫助尋找BUG：
 
-* `noImplicitReturns` 会防止你忘记在函数末尾返回值。
-* `noFallthroughCasesInSwitch` 会防止在`switch`代码块里的两个`case`之间忘记添加`break`语句。
+* `noImplicitReturns` 會防止您忘記在函數末尾返回值。
+* `noFallthroughCasesInSwitch` 會防止在`switch`程式碼塊裡的兩個`case`之間忘記加入`break`敘述。
 
-TypeScript还能发现那些执行不到的代码和标签，你可以通过设置`allowUnreachableCode`和`allowUnusedLabels`选项来禁用。
+TypeScript還能發現那些執行不到的程式碼和標籤，您可以透過設置`allowUnreachableCode`和`allowUnusedLabels`選項來禁用。
 
-# 与构建工具进行集成
+# 與建構工具進行整合
 
-在你的构建管道中可能包含多个步骤。
-比如为每个文件添加一些内容。
-每种工具的使用方法都是不同的，我们会尽可能的包涵主流的工具。
+在您的建構管道中可能包含多個步驟。
+比如為每個檔案加入一些內容。
+每種工具的使用方法都是不同的，我們會儘可能的包涵主流的工具。
 
 ## Gulp
 
-如果你在使用时髦的Gulp，我们已经有一篇关于[使用Gulp](./Gulp.md)结合TypeScript并与常见构建工具Browserify，Babelify和Uglify进行集成的教程。
-请阅读这篇教程。
+如果您在使用時髦的Gulp，我們已經有一篇關於[使用Gulp](./Gulp.md)結合TypeScript並與常見建構工具Browserify，Babelify和Uglify進行整合的教學。
+請閱讀這篇教學。
 
 ## Webpack
 
-Webpack集成非常简单。
-你可以使用`awesome-typescript-loader`，它是一个TypeScript的加载器，结合`source-map-loader`方便调试。
-运行：
+Webpack整合非常簡單。
+您可以使用`awesome-typescript-loader`，它是一個TypeScript的載入器，結合`source-map-loader`方便偵錯。
+執行：
 
 ```shell
 npm install awesome-typescript-loader source-map-loader
 ```
 
-并将下面的选项合并到你的`webpack.config.js`文件里：
+並將下面的選項合併到您的`webpack.config.js`檔案裡：
 
 ```js
 module.exports = {
@@ -125,47 +125,47 @@ module.exports = {
 };
 ```
 
-要注意的是，`awesome-typescript-loader`必须在其它处理`.js`文件的加载器之前运行。
+要注意的是，`awesome-typescript-loader`必須在其它處理`.js`檔案的載入器之前執行。
 
-这与另一个TypeScript的Webpack加载器[ts-loader](https://github.com/TypeStrong/ts-loader)是一样的。
-你可以到[这里](https://github.com/s-panferov/awesome-typescript-loader#differences-between-ts-loader)了解两者之间的差别。
+這與另一個TypeScript的Webpack載入器[ts-loader](https://github.com/TypeStrong/ts-loader)是一樣的。
+您可以到[這裡](https://github.com/s-panferov/awesome-typescript-loader#differences-between-ts-loader)瞭解兩者之間的差別。
 
-你可以在[React和Webpack教程](./React & Webpack.md)里找到使用Webpack的例子。
+您可以在[React和Webpack教學](./React & Webpack.md)裡找到使用Webpack的範例。
 
-# 转换到TypeScript文件
+# 轉換到TypeScript檔案
 
-到目前为止，你已经做好了使用TypeScript文件的准备。
-第一步，将`.js`文件重命名为`.ts`文件。
-如果你使用了JSX，则重命名为`.tsx`文件。
+到目前為止，您已經做好了使用TypeScript檔案的準備。
+第一步，將`.js`檔案重命名為`.ts`檔案。
+如果您使用了JSX，則重命名為`.tsx`檔案。
 
-第一步达成？
+第一步達成？
 太棒了!
-你已经成功地将一个文件从JavaScript转换成了TypeScript!
+您已經成功地將一個檔案從JavaScript轉換成了TypeScript!
 
-当然了，你可能感觉哪里不对劲儿。
-如果你在支持TypeScript的编辑器（或运行`tsc --pretty`）里打开了那个文件，你可能会看到有些行上有红色的波浪线。
-你可以把它们当做在Microsoft Word里看到的红色波浪线一样。
-但是TypeScript仍然会编译你的代码，就好比Word还是允许你打印你的文档一样。
+當然了，您可能感覺哪裡不對勁兒。
+如果您在支援TypeScript的編輯器(或執行`tsc --pretty`)裡打開了那個檔案，您可能會看到有些行上有紅色的波浪線。
+您可以把它們當做在Microsoft Word裡看到的紅色波浪線一樣。
+但是TypeScript仍然會編譯您的程式碼，就好比Word還是允許您列印您的文件一樣。
 
-如果对你来说这种行为太随便了，你可以让它变得严格些。
-如果，你*不想*在发生错误的时候，TypeScript还会被编译成JavaScript，你可以使用`noEmitOnError`选项。
-从某种意义上来讲，TypeScript具有一个调整它的严格性的刻度盘，你可以将指针拔动到你想要的位置。
+如果對您來說這種行為太隨便了，您可以讓它變得嚴格些。
+如果，您*不想*在發生錯誤的時候，TypeScript還會被編譯成JavaScript，您可以使用`noEmitOnError`選項。
+從某種意義上來講，TypeScript具有一個調整它的嚴格性的刻度盤，您可以將指標拔動到您想要的位置。
 
-如果你计划使用可用的高度严格的设置，最好现在就启用它们（查看[启用严格检查](#getting-stricter-checks)）。
-比如，如果你不想让TypeScript将没有明确指定的类型默默地推断为`any`类型，可以在修改文件之前启用`noImplicitAny`。
-你可能会觉得这有些过度严格，但是长期收益很快就能显现出来。
+如果您計畫使用可用的高度嚴格的設置，最好現在就啟用它們(查看[啟用嚴格檢查](#getting-stricter-checks))。
+比如，如果您不想讓TypeScript將沒有明確指定的型別默默地推斷為`any`型別，可以在修改檔案之前啟用`noImplicitAny`。
+您可能會覺得這有些過度嚴格，但是長期收益很快就能顯現出來。
 
-## 去除错误
+## 去除錯誤
 
-我们提到过，若不出所料，在转换后将会看到错误信息。
-重要的是我们要逐一的查看它们并决定如何处理。
-通常这些都是真正的BUG，但有时必须要告诉TypeScript你要做的是什么。
+我們提到過，若不出所料，在轉換後將會看到錯誤訊息。
+重要的是我們要逐一的查看它們並決定如何處理。
+通常這些都是真正的BUG，但有時必須要告訴TypeScript您要做的是什麼。
 
-### 由模块导入
+### 由模組導入
 
-首先你可能会看到一些类似`Cannot find name 'require'.`和`Cannot find name 'define'.`的错误。
-遇到这种情况说明你在使用模块。
-你仅需要告诉TypeScript它们是存在的：
+首先您可能會看到一些類似`Cannot find name 'require'.`和`Cannot find name 'define'.`的錯誤。
+遇到這種情況說明您在使用模組。
+您僅需要告訴TypeScript它們是存在的：
 
 ```ts
 // For Node/CommonJS
@@ -179,12 +179,12 @@ declare function require(path: string): any;
 declare function define(...args: any[]): any;
 ```
 
-最好是避免使用这些调用而改用TypeScript的导入语法。
+最好是避免使用這些呼叫而改用TypeScript的導入語法。
 
-首先，你要使用TypeScript的`module`标记来启用一些模块系统。
-可用的选项有`commonjs`，`amd`，`system`，and `umd`。
+首先，您要使用TypeScript的`module`標記來啟用一些模組系統。
+可用的選項有`commonjs`，`amd`，`system`，and `umd`。
 
-如果代码里存在下面的Node/CommonJS代码：
+如果程式碼裡存在下面的Node/CommonJS程式碼：
 
 ```js
 var foo = require("foo");
@@ -192,7 +192,7 @@ var foo = require("foo");
 foo.doStuff();
 ```
 
-或者下面的RequireJS/AMD代码：
+或者下面的RequireJS/AMD程式碼：
 
 ```js
 define(["foo"], function(foo) {
@@ -200,7 +200,7 @@ define(["foo"], function(foo) {
 })
 ```
 
-那么可以写做下面的TypeScript代码：
+那麼可以寫做下面的TypeScript程式碼：
 
 ```ts
 import foo = require("foo");
@@ -208,26 +208,26 @@ import foo = require("foo");
 foo.doStuff();
 ```
 
-### 获取声明文件
+### 獲取宣告檔案
 
-如果你开始做转换到TypeScript导入，你可能会遇到`Cannot find module 'foo'.`这样的错误。
-问题出在没有*声明文件*来描述你的代码库。
-幸运的是这非常简单。
-如果TypeScript报怨像是没有`lodash`包，那你只需这样做
+如果您開始做轉換到TypeScript導入，您可能會遇到`Cannot find module 'foo'.`這樣的錯誤。
+問題出在沒有*宣告檔案*來描述您的程式碼庫。
+幸運的是這非常簡單。
+如果TypeScript報怨像是沒有`lodash`包，那您只需這樣做
 
 ```shell
 npm install -S @types/lodash
 ```
 
-如果你没有使用`commonjs`模块模块选项，那么就需要将`moduleResolution`选项设置为`node`。
+如果您沒有使用`commonjs`模組模組選項，那麼就需要將`moduleResolution`選項設置為`node`。
 
-之后，你应该就可以导入`lodash`了，并且会获得精确的自动补全功能。
+之後，您應該就可以導入`lodash`了，並且會獲得精確的自動補全功能。
 
-### 由模块导出
+### 由模組導出
 
-通常来讲，由模块导出涉及添加属性到`exports`或`module.exports`。
-TypeScript允许你使用顶级的导出语句。
-比如，你要导出下面的函数：
+通常來講，由模組導出涉及加入屬性到`exports`或`module.exports`。
+TypeScript允許您使用頂級的導出敘述。
+比如，您要導出下面的函數：
 
 ```js
 module.exports.feedPets = function(pets) {
@@ -235,7 +235,7 @@ module.exports.feedPets = function(pets) {
 }
 ```
 
-那么你可以这样写：
+那麼您可以這樣寫：
 
 ```ts
 export function feedPets(pets) {
@@ -243,15 +243,15 @@ export function feedPets(pets) {
 }
 ```
 
-有时你会完全重写导出对象。
-这是一个常见模式，这会将模块变为可立即调用的模块：
+有時您會完全重寫導出物件。
+這是一個常見模式，這會將模組變為可立即呼叫的模組：
 
 ```js
 var express = require("express");
 var app = express();
 ```
 
-之前你可以是这样写的：
+之前您可以是這樣寫的：
 
 ```js
 function foo() {
@@ -260,7 +260,7 @@ function foo() {
 module.exports = foo;
 ```
 
-在TypeScript里，你可以使用`export =`来代替。
+在TypeScript裡，您可以使用`export =`來代替。
 
 ```ts
 function foo() {
@@ -269,10 +269,10 @@ function foo() {
 export = foo;
 ```
 
-### 过多或过少的参数
+### 過多或過少的參數
 
-有时你会发现你在调用一个具有过多或过少参数的函数。
-通常，这是一个BUG，但在某些情况下，你可以声明一个使用`arguments`对象的函数而不需要写出所有参数:
+有時您會發現您在呼叫一個具有過多或過少參數的函數。
+通常，這是一個BUG，但在某些情況下，您可以宣告一個使用`arguments`物件的函數而不需要寫出所有參數:
 
 ```js
 function myCoolFunction() {
@@ -288,7 +288,7 @@ myCoolFunction(function(x) { console.log(x) }, [1, 2, 3, 4]);
 myCoolFunction(function(x) { console.log(x) }, 1, 2, 3, 4);
 ```
 
-这种情况下，我们需要利用TypeScript的函数重载来告诉调用者`myCoolFunction`函数的调用方式。
+這種情況下，我們需要利用TypeScript的函數重載來告訴呼叫者`myCoolFunction`函數的呼叫方式。
 
 ```ts
 function myCoolFunction(f: (x: number) => void, nums: number[]): void;
@@ -303,13 +303,13 @@ function myCoolFunction() {
 }
 ```
 
-我们为`myCoolFunction`函数添加了两个重载签名。
-第一个检查`myCoolFunction`函数是否接收一个函数（它又接收一个`number`参数）和一个`number`数组。
-第二个同样是接收了一个函数，并且使用剩余参数（`...nums`）来表示之后的其它所有参数必须是`number`类型。
+我們為`myCoolFunction`函數加入了兩個重載簽名。
+第一個檢查`myCoolFunction`函數是否接收一個函數(它又接收一個`number`參數)和一個`number`陣列。
+第二個同樣是接收了一個函數，並且使用剩餘參數(`...nums`)來表示之後的其它所有參數必須是`number`型別。
 
-### 连续添加属性
+### 連續加入屬性
 
-有些人可能会因为代码美观性而喜欢先创建一个对象然后立即添加属性：
+有些人可能會因為程式碼美觀性而喜歡先建立一個物件然後立即加入屬性：
 
 ```js
 var options = {};
@@ -317,8 +317,8 @@ options.color = "red";
 options.volume = 11;
 ```
 
-TypeScript会提示你不能给`color`和`volumn`赋值，因为先前指定`options`的类型为`{}`并不带有任何属性。
-如果你将声明变成对象字面量的形式将不会产生错误：
+TypeScript會提示您不能給`color`和`volumn`賦值，因為先前指定`options`的型別為`{}`並不帶有任何屬性。
+如果您將宣告變成物件字面量的形式將不會產生錯誤：
 
 ```ts
 let options = {
@@ -327,7 +327,7 @@ let options = {
 };
 ```
 
-你还可以定义`options`的类型并且添加类型断言到对象字面量上。
+您還可以定義`options`的型別並且加入型別斷言到物件字面量上。
 
 ```ts
 interface Options { color: string; volume: number }
@@ -337,45 +337,45 @@ options.color = "red";
 options.volume = 11;
 ```
 
-或者，你可以将`options`指定成`any`类型，这是最简单的，但也是获益最少的。
+或者，您可以將`options`指定成`any`型別，這是最簡單的，但也是獲益最少的。
 
 ### `any`，`Object`，和`{}`
 
-你可能会试图使用`Object`或`{}`来表示一个值可以具有任意属性，因为`Object`是最通用的类型。
-然而在这种情况下**`any`是真正想要使用的类型**，因为它是最*灵活*的类型。
+您可能會試圖使用`Object`或`{}`來表示一個值可以具有任意屬性，因為`Object`是最通用的型別。
+然而在這種情況下**`any`是真正想要使用的型別**，因為它是最*靈活*的型別。
 
-比如，有一个`Object`类型的东西，你将不能够在其上调用`toLowerCase()`。
+比如，有一個`Object`型別的東西，您將不能夠在其上呼叫`toLowerCase()`。
 
-越普通意味着更少的利用类型，但是`any`比较特殊，它是最普通的类型但是允许你在上面做任何事情。
-也就是说你可以在上面调用，构造它，访问它的属性等等。
-记住，当你使用`any`时，你会失去大多数TypeScript提供的错误检查和编译器支持。
+越普通意味著更少的利用型別，但是`any`比較特殊，它是最普通的型別但是允許您在上面做任何事情。
+也就是說您可以在上面呼叫，構造它，存取它的屬性等等。
+記住，當您使用`any`時，您會失去大多數TypeScript提供的錯誤檢查和編譯器支援。
 
-如果你还是决定使用`Object`和`{}`，你应该选择`{}`。
-虽说它们基本一样，但是从技术角度上来讲`{}`在一些深奥的情况里比`Object`更普通。
+如果您還是決定使用`Object`和`{}`，您應該選擇`{}`。
+雖說它們基本一樣，但是從技術角度上來講`{}`在一些深奧的情況裡比`Object`更普通。
 
-## <a name="getting-stricter-checks"></a>启用严格检查
+## <a name="getting-stricter-checks"></a>啟用嚴格檢查
 
-TypeScript提供了一些检查来保证安全以及帮助分析你的程序。
-当你将代码转换为了TypeScript后，你可以启用这些检查来帮助你获得高度安全性。
+TypeScript提供了一些檢查來保證安全以及幫助分析您的程式。
+當您將程式碼轉換為了TypeScript後，您可以啟用這些檢查來幫助您獲得高度安全性。
 
-### 没有隐式的`any`
+### 沒有隱式的`any`
 
-在某些情况下TypeScript没法确定某些值的类型。
-那么TypeScript会使用`any`类型代替。
-这对代码转换来讲是不错，但是使用`any`意味着失去了类型安全保障，并且你得不到工具的支持。
-你可以使用`noImplicitAny`选项，让TypeScript标记出发生这种情况的地方，并给出一个错误。
+在某些情況下TypeScript沒法確定某些值的型別。
+那麼TypeScript會使用`any`型別代替。
+這對程式碼轉換來講是不錯，但是使用`any`意味著失去了型別安全保障，並且您得不到工具的支援。
+您可以使用`noImplicitAny`選項，讓TypeScript標記出發生這種情況的地方，並給出一個錯誤。
 
-### 严格的`null`与`undefined`检查
+### 嚴格的`null`與`undefined`檢查
 
-默认地，TypeScript把`null`和`undefined`当做属于任何类型。
-这就是说，声明为`number`类型的值可以为`null`和`undefined`。
-因为在JavaScript和TypeScript里，`null`和`undefined`经常会导致BUG的产生，所以TypeScript包含了`strictNullChecks`选项来帮助我们减少对这种情况的担忧。
+預設地，TypeScript把`null`和`undefined`當做屬於任何型別。
+這就是說，宣告為`number`型別的值可以為`null`和`undefined`。
+因為在JavaScript和TypeScript裡，`null`和`undefined`經常會導致BUG的產生，所以TypeScript包含了`strictNullChecks`選項來幫助我們減少對這種情況的擔憂。
 
-当启用了`strictNullChecks`，`null`和`undefined`获得了它们自己各自的类型`null`和`undefined`。
-当任何值*可能*为`null`，你可以使用联合类型。
-比如，某值可能为`number`或`null`，你可以声明它的类型为`number | null`。
+當啟用了`strictNullChecks`，`null`和`undefined`獲得了它們自己各自的型別`null`和`undefined`。
+當任何值*可能*為`null`，您可以使用聯合型別。
+比如，某值可能為`number`或`null`，您可以宣告它的型別為`number | null`。
 
-假设有一个值TypeScript认为可以为`null`或`undefined`，但是你更清楚它的类型，你可以使用`!`后缀。
+假設有一個值TypeScript認為可以為`null`或`undefined`，但是您更清楚它的型別，您可以使用`!`後綴。
 
 ```ts
 declare var foo: string[] | null;
@@ -385,12 +385,12 @@ foo.length;  // error - 'foo' is possibly 'null'
 foo!.length; // okay - 'foo!' just has type 'string[]'
 ```
 
-要当心，当你使用`strictNullChecks`，你的依赖也需要相应地启用`strictNullChecks`。
+要當心，當您使用`strictNullChecks`，您的依賴也需要對應地啟用`strictNullChecks`。
 
-### `this`没有隐式的`any`
+### `this`沒有隱式的`any`
 
-当你在类的外部使用`this`关键字时，它会默认获得`any`类型。
-比如，假设有一个`Point`类，并且我们要添加一个函数做为它的方法：
+當您在類的外部使用`this`關鍵字時，它會預設獲得`any`型別。
+比如，假設有一個`Point`類，並且我們要加入一個函數做為它的方法：
 
 ```ts
 class Point {
@@ -412,10 +412,10 @@ Point.prototype.distanceFromOrigin = function(point: Point) {
 }
 ```
 
-这就产生了我们上面提到的错误 - 如果我们错误地拼写了`getDistance`并不会得到一个错误。
-正因此，TypeScript有`noImplicitThis`选项。
-当设置了它，TypeScript会产生一个错误当没有明确指定类型（或通过类型推断）的`this`被使用时。
-解决的方法是在接口或函数上使用指定了类型的`this`参数：
+這就產生了我們上面提到的錯誤 - 如果我們錯誤地拼寫了`getDistance`並不會得到一個錯誤。
+正因此，TypeScript有`noImplicitThis`選項。
+當設置了它，TypeScript會產生一個錯誤當沒有明確指定型別(或透過型別推斷)的`this`被使用時。
+解決的方法是在介面或函數上使用指定了型別的`this`參數：
 
 ```ts
 Point.prototype.distanceFromOrigin = function(this: Point, point: Point) {
