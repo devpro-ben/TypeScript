@@ -1,21 +1,21 @@
 ## 概述
 
-如果一个目录下存在一个`tsconfig.json`文件，那么它意味着这个目录是TypeScript项目的根目录。
-`tsconfig.json`文件中指定了用来编译这个项目的根文件和编译选项。
-一个项目可以通过以下方式之一来编译：
+如果一個目錄下存在一個`tsconfig.json`文件，那麼它意味著這個目錄是TypeScript項目的根目錄。
+`tsconfig.json`文件中指定了用來編譯這個項目的根文件和編譯選項。
+一個項目可以通過以下方式之一來編譯：
 
 ## 使用tsconfig.json
 
-* 不带任何输入文件的情况下调用`tsc`，编译器会从当前目录开始去查找`tsconfig.json`文件，逐级向上搜索父目录。
-* 不带任何输入文件的情况下调用`tsc`，且使用命令行参数`--project`（或`-p`）指定一个包含`tsconfig.json`文件的目录。
+* 不帶任何輸入文件的情況下調用`tsc`，編譯器會從當前目錄開始去查找`tsconfig.json`文件，逐級向上搜索父目錄。
+* 不帶任何輸入文件的情況下調用`tsc`，且使用命令行參數`--project`（或`-p`）指定一個包含`tsconfig.json`文件的目錄。
 
-当命令行上指定了输入文件时，`tsconfig.json`文件会被忽略。
+當命令行上指定了輸入文件時，`tsconfig.json`文件會被忽略。
 
 ## 示例
 
 `tsconfig.json`示例文件:
 
-* 使用`"files"`属性
+* 使用`"files"`屬性
 
 ```json
 {
@@ -44,7 +44,7 @@
 }
 ```
 
-* 使用`"include"`和`"exclude"`属性
+* 使用`"include"`和`"exclude"`屬性
 
   ```json
   {
@@ -66,45 +66,45 @@
   }
   ```
 
-## 细节
+## 細節
 
-`"compilerOptions"`可以被忽略，这时编译器会使用默认值。在这里查看完整的[编译器选项](./Compiler Options.md)列表。
+`"compilerOptions"`可以被忽略，這時編譯器會使用默認值。在這裡查看完整的[編譯器選項](./Compiler Options.md)列表。
 
-`"files"`指定一个包含相对或绝对文件路径的列表。
-`"include"`和`"exclude"`属性指定一个文件glob匹配模式列表。
+`"files"`指定一個包含相對或絕對文件路徑的列表。
+`"include"`和`"exclude"`屬性指定一個文件glob匹配模式列表。
 支持的glob通配符有：
 
-* `*` 匹配0或多个字符（不包括目录分隔符）
-* `?` 匹配一个任意字符（不包括目录分隔符）
-* `**/` 递归匹配任意子目录
+* `*` 匹配0或多個字符（不包括目錄分隔符）
+* `?` 匹配一個任意字符（不包括目錄分隔符）
+* `**/` 遞歸匹配任意子目錄
 
-如果一个glob模式里的某部分只包含`*`或`.*`，那么仅有支持的文件扩展名类型被包含在内（比如默认`.ts`，`.tsx`，和`.d.ts`， 如果`allowJs`设置能`true`还包含`.js`和`.jsx`）。
+如果一個glob模式裡的某部分只包含`*`或`.*`，那麼僅有支持的文件擴展名類型被包含在內（比如默認`.ts`，`.tsx`，和`.d.ts`， 如果`allowJs`設置能`true`還包含`.js`和`.jsx`）。
 
-如果`"files"`和`"include"`都没有被指定，编译器默认包含当前目录和子目录下所有的TypeScript文件（`.ts`, `.d.ts` 和 `.tsx`），排除在`"exclude"`里指定的文件。JS文件（`.js`和`.jsx`）也被包含进来如果`allowJs`被设置成`true`。
-如果指定了`"files"`或`"include"`，编译器会将它们结合一并包含进来。
-使用`"outDir"`指定的目录下的文件永远会被编译器排除，除非你明确地使用`"files"`将其包含进来（这时就算用`exclude`指定也没用）。
+如果`"files"`和`"include"`都沒有被指定，編譯器默認包含當前目錄和子目錄下所有的TypeScript文件（`.ts`, `.d.ts` 和 `.tsx`），排除在`"exclude"`裡指定的文件。JS文件（`.js`和`.jsx`）也被包含進來如果`allowJs`被設置成`true`。
+如果指定了`"files"`或`"include"`，編譯器會將它們結合一併包含進來。
+使用`"outDir"`指定的目錄下的文件永遠會被編譯器排除，除非你明確地使用`"files"`將其包含進來（這時就算用`exclude`指定也沒用）。
 
-使用`"include"`引入的文件可以使用`"exclude"`属性过滤。
-然而，通过`"files"`属性明确指定的文件却总是会被包含在内，不管`"exclude"`如何设置。
-如果没有特殊指定，`"exclude"`默认情况下会排除`node_modules`，`bower_components`，`jspm_packages`和`<outDir>`目录。
+使用`"include"`引入的文件可以使用`"exclude"`屬性過濾。
+然而，通過`"files"`屬性明確指定的文件卻總是會被包含在內，不管`"exclude"`如何設置。
+如果沒有特殊指定，`"exclude"`默認情況下會排除`node_modules`，`bower_components`，`jspm_packages`和`<outDir>`目錄。
 
-任何被`"files"`或`"include"`指定的文件所引用的文件也会被包含进来。
+任何被`"files"`或`"include"`指定的文件所引用的文件也會被包含進來。
 `A.ts`引用了`B.ts`，因此`B.ts`不能被排除，除非引用它的`A.ts`在`"exclude"`列表中。
 
-需要注意编译器不会去引入那些可能做为输出的文件；比如，假设我们包含了`index.ts`，那么`index.d.ts`和`index.js`会被排除在外。
-通常来讲，不推荐只有扩展名的不同来区分同目录下的文件。
+需要注意編譯器不會去引入那些可能做為輸出的文件；比如，假設我們包含了`index.ts`，那麼`index.d.ts`和`index.js`會被排除在外。
+通常來講，不推薦只有擴展名的不同來區分同目錄下的文件。
 
-`tsconfig.json`文件可以是个空文件，那么所有默认的文件（如上面所述）都会以默认配置选项编译。
+`tsconfig.json`文件可以是個空文件，那麼所有默認的文件（如上面所述）都會以默認配置選項編譯。
 
-在命令行上指定的编译选项会覆盖在`tsconfig.json`文件里的相应选项。
+在命令行上指定的編譯選項會覆蓋在`tsconfig.json`文件裡的相應選項。
 
 ## `@types`，`typeRoots`和`types`
 
-默认所有*可见的*"`@types`"包会在编译过程中被包含进来。
-`node_modules/@types`文件夹下以及它们子文件夹下的所有包都是*可见的*；
-也就是说，`./node_modules/@types/`，`../node_modules/@types/`和`../../node_modules/@types/`等等。
+默認所有*可見的*"`@types`"包會在編譯過程中被包含進來。
+`node_modules/@types`文件夾下以及它們子文件夾下的所有包都是*可見的*；
+也就是說，`./node_modules/@types/`，`../node_modules/@types/`和`../../node_modules/@types/`等等。
 
-如果指定了`typeRoots`，*只有*`typeRoots`下面的包才会被包含进来。
+如果指定了`typeRoots`，*只有*`typeRoots`下面的包才會被包含進來。
 比如：
 
 ```json
@@ -115,9 +115,9 @@
 }
 ```
 
-这个配置文件会包含*所有*`./typings`下面的包，而不包含`./node_modules/@types`里面的包。
+這個配置文件會包含*所有*`./typings`下面的包，而不包含`./node_modules/@types`裡面的包。
 
-如果指定了`types`，只有被列出来的包才会被包含进来。
+如果指定了`types`，只有被列出來的包才會被包含進來。
 比如：
 
 ```json
@@ -128,27 +128,27 @@
 }
 ```
 
-这个`tsconfig.json`文件将*仅会*包含  `./node_modules/@types/node`，`./node_modules/@types/lodash`和`./node_modules/@types/express`。/@types/。
-`node_modules/@types/*`里面的其它包不会被引入进来。
+這個`tsconfig.json`文件將*僅會*包含  `./node_modules/@types/node`，`./node_modules/@types/lodash`和`./node_modules/@types/express`。/@types/。
+`node_modules/@types/*`裡面的其它包不會被引入進來。
 
-指定`"types": []`来禁用自动引入`@types`包。
+指定`"types": []`來禁用自動引入`@types`包。
 
-注意，自动引入只在你使用了全局的声明（相反于模块）时是重要的。
-如果你使用`import "foo"`语句，TypeScript仍然会查找`node_modules`和`node_modules/@types`文件夹来获取`foo`包。
+注意，自動引入只在你使用了全局的聲明（相反於模塊）時是重要的。
+如果你使用`import "foo"`語句，TypeScript仍然會查找`node_modules`和`node_modules/@types`文件夾來獲取`foo`包。
 
-## 使用`extends`继承配置
+## 使用`extends`繼承配置
 
-`tsconfig.json`文件可以利用`extends`属性从另一个配置文件里继承配置。
+`tsconfig.json`文件可以利用`extends`屬性從另一個配置文件裡繼承配置。
 
-`extends`是`tsconfig.json`文件里的顶级属性（与`compilerOptions`，`files`，`include`，和`exclude`一样）。
-`extends`的值是一个字符串，包含指向另一个要继承文件的路径。
+`extends`是`tsconfig.json`文件裡的頂級屬性（與`compilerOptions`，`files`，`include`，和`exclude`一樣）。
+`extends`的值是一個字符串，包含指向另一個要繼承文件的路徑。
 
-在原文件里的配置先被加载，然后被来至继承文件里的配置重写。
-如果发现循环引用，则会报错。
+在原文件裡的配置先被加載，然後被來至繼承文件裡的配置重寫。
+如果發現循環引用，則會報錯。
 
-来至所继承配置文件的`files`，`include`和`exclude`*覆盖*源配置文件的属性。
+來至所繼承配置文件的`files`，`include`和`exclude`*覆蓋*源配置文件的屬性。
 
-配置文件里的相对路径在解析时相对于它所在的文件。
+配置文件裡的相對路徑在解析時相對於它所在的文件。
 
 比如：
 
@@ -188,7 +188,7 @@
 
 ## `compileOnSave`
 
-在最顶层设置`compileOnSave`标记，可以让IDE在保存文件的时候根据`tsconfig.json`重新生成文件。
+在最頂層設置`compileOnSave`標記，可以讓IDE在保存文件的時候根據`tsconfig.json`重新生成文件。
 
 ```json
 {
@@ -199,8 +199,8 @@
 }
 ```
 
-要想支持这个特性需要Visual Studio 2015， TypeScript1.8.4以上并且安装[atom-typescript](https://github.com/TypeStrong/atom-typescript#compile-on-save)插件。
+要想支持這個特性需要Visual Studio 2015， TypeScript1.8.4以上並且安裝[atom-typescript](https://github.com/TypeStrong/atom-typescript#compile-on-save)插件。
 
 ## 模式
 
-到这里查看模式: [http://json.schemastore.org/tsconfig](http://json.schemastore.org/tsconfig).
+到這裡查看模式: [http://json.schemastore.org/tsconfig](http://json.schemastore.org/tsconfig).

@@ -1,12 +1,12 @@
-# 介绍
+# 介紹
 
-除了传统的面向对象继承方式，还流行一种通过可重用组件创建类的方式，就是联合另一个简单类的代码。
-你可能在Scala等语言里对mixins及其特性已经很熟悉了，但它在JavaScript中也是很流行的。
+除了傳統的面向對象繼承方式，還流行一種通過可重用組件創建類的方式，就是聯合另一個簡單類的代碼。
+你可能在Scala等語言裡對mixins及其特性已經很熟悉了，但它在JavaScript中也是很流行的。
 
 # 混入示例
 
-下面的代码演示了如何在TypeScript里使用混入。
-后面我们还会解释这段代码是怎么工作的。
+下面的代碼演示了如何在TypeScript裡使用混入。
+後面我們還會解釋這段代碼是怎麼工作的。
 
 ```ts
 // Disposable Mixin
@@ -64,11 +64,11 @@ function applyMixins(derivedCtor: any, baseCtors: any[]) {
 }
 ```
 
-# 理解这个例子
+# 理解這個例子
 
-代码里首先定义了两个类，它们将做为mixins。
-可以看到每个类都只定义了一个特定的行为或功能。
-稍后我们使用它们来创建一个新类，同时具有这两种功能。
+代碼裡首先定義了兩個類，它們將做為mixins。
+可以看到每個類都只定義了一個特定的行為或功能。
+稍後我們使用它們來創建一個新類，同時具有這兩種功能。
 
 ```ts
 // Disposable Mixin
@@ -92,21 +92,21 @@ class Activatable {
 }
 ```
 
-下面创建一个类，结合了这两个mixins。
-下面来看一下具体是怎么操作的：
+下面創建一個類，結合了這兩個mixins。
+下面來看一下具體是怎麼操作的：
 
 ```ts
 class SmartObject implements Disposable, Activatable {
 ```
 
-首先应该注意到的是，没使用`extends`而是使用`implements`。
-把类当成了接口，仅使用Disposable和Activatable的类型而非其实现。
-这意味着我们需要在类里面实现接口。
-但是这是我们在用mixin时想避免的。
+首先應該注意到的是，沒使用`extends`而是使用`implements`。
+把類當成了接口，僅使用Disposable和Activatable的類型而非其實現。
+這意味著我們需要在類裡面實現接口。
+但是這是我們在用mixin時想避免的。
 
-我们可以这么做来达到目的，为将要mixin进来的属性方法创建出占位属性。
-这告诉编译器这些成员在运行时是可用的。
-这样就能使用mixin带来的便利，虽说需要提前定义一些占位属性。
+我們可以這麼做來達到目的，為將要mixin進來的屬性方法創建出佔位屬性。
+這告訴編譯器這些成員在運行時是可用的。
+這樣就能使用mixin帶來的便利，雖說需要提前定義一些佔位屬性。
 
 ```ts
 // Disposable
@@ -118,14 +118,14 @@ activate: () => void;
 deactivate: () => void;
 ```
 
-最后，把mixins混入定义的类，完成全部实现部分。
+最後，把mixins混入定義的類，完成全部實現部分。
 
 ```ts
 applyMixins(SmartObject, [Disposable, Activatable]);
 ```
 
-最后，创建这个帮助函数，帮我们做混入操作。
-它会遍历mixins上的所有属性，并复制到目标上去，把之前的占位属性替换成真正的实现代码。
+最後，創建這個幫助函數，幫我們做混入操作。
+它會遍歷mixins上的所有屬性，並複製到目標上去，把之前的佔位屬性替換成真正的實現代碼。
 
 ```ts
 function applyMixins(derivedCtor: any, baseCtors: any[]) {

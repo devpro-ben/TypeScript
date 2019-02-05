@@ -1,13 +1,13 @@
 # 可迭代性
 
-当一个对象实现了[`Symbol.iterator`](Symbols.md#symboliterator)属性时，我们认为它是可迭代的。
-一些内置的类型如`Array`，`Map`，`Set`，`String`，`Int32Array`，`Uint32Array`等都已经实现了各自的`Symbol.iterator`。
-对象上的`Symbol.iterator`函数负责返回供迭代的值。
+當一個對象實現了[`Symbol.iterator`](Symbols.md#symboliterator)屬性時，我們認為它是可迭代的。
+一些內置的類型如`Array`，`Map`，`Set`，`String`，`Int32Array`，`Uint32Array`等都已經實現了各自的`Symbol.iterator`。
+對象上的`Symbol.iterator`函數負責返回供迭代的值。
 
-## `for..of` 语句
+## `for..of` 語句
 
-`for..of`会遍历可迭代的对象，调用对象上的`Symbol.iterator`方法。
-下面是在数组上使用`for..of`的简单例子：
+`for..of`會遍歷可迭代的對象，調用對象上的`Symbol.iterator`方法。
+下面是在數組上使用`for..of`的簡單例子：
 
 ```ts
 let someArray = [1, "string", false];
@@ -17,11 +17,11 @@ for (let entry of someArray) {
 }
 ```
 
-### `for..of` vs. `for..in` 语句
+### `for..of` vs. `for..in` 語句
 
-`for..of`和`for..in`均可迭代一个列表；但是用于迭代的值却不同，`for..in`迭代的是对象的 *键* 的列表，而`for..of`则迭代对象的键对应的值。
+`for..of`和`for..in`均可迭代一個列表；但是用於迭代的值卻不同，`for..in`迭代的是對象的 *鍵* 的列表，而`for..of`則迭代對象的鍵對應的值。
 
-下面的例子展示了两者之间的区别：
+下面的例子展示了兩者之間的區別：
 
 ```ts
 let list = [4, 5, 6];
@@ -35,8 +35,8 @@ for (let i of list) {
 }
 ```
 
-另一个区别是`for..in`可以操作任何对象；它提供了查看对象属性的一种方法。
-但是`for..of`关注于迭代对象的值。内置对象`Map`和`Set`已经实现了`Symbol.iterator`方法，让我们可以访问它们保存的值。
+另一個區別是`for..in`可以操作任何對象；它提供了查看對象屬性的一種方法。
+但是`for..of`關注於迭代對象的值。內置對象`Map`和`Set`已經實現了`Symbol.iterator`方法，讓我們可以訪問它們保存的值。
 
 ```ts
 let pets = new Set(["Cat", "Dog", "Hamster"]);
@@ -51,14 +51,14 @@ for (let pet of pets) {
 }
 ```
 
-### 代码生成
+### 代碼生成
 
-#### 目标为 ES5 和 ES3
+#### 目標為 ES5 和 ES3
 
-当生成目标为ES5或ES3，迭代器只允许在`Array`类型上使用。
-在非数组值上使用`for..of`语句会得到一个错误，就算这些非数组值已经实现了`Symbol.iterator`属性。
+當生成目標為ES5或ES3，迭代器只允許在`Array`類型上使用。
+在非數組值上使用`for..of`語句會得到一個錯誤，就算這些非數組值已經實現了`Symbol.iterator`屬性。
 
-编译器会生成一个简单的`for`循环做为`for..of`循环，比如：
+編譯器會生成一個簡單的`for`循環做為`for..of`循環，比如：
 
 ```ts
 let numbers = [1, 2, 3];
@@ -67,7 +67,7 @@ for (let num of numbers) {
 }
 ```
 
-生成的代码为：
+生成的代碼為：
 
 ```js
 var numbers = [1, 2, 3];
@@ -77,6 +77,6 @@ for (var _i = 0; _i < numbers.length; _i++) {
 }
 ```
 
-#### 目标为 ECMAScript 2015 或更高
+#### 目標為 ECMAScript 2015 或更高
 
-当目标为兼容ECMAScipt 2015的引擎时，编译器会生成相应引擎的`for..of`内置迭代器实现方式。
+當目標為兼容ECMAScipt 2015的引擎時，編譯器會生成相應引擎的`for..of`內置迭代器實現方式。

@@ -1,12 +1,12 @@
-# 介绍
+# 介紹
 
-TypeScript的核心原则之一是对值所具有的*结构*进行类型检查。
-它有时被称做“鸭式辨型法”或“结构性子类型化”。
-在TypeScript里，接口的作用就是为这些类型命名和为你的代码或第三方代码定义契约。
+TypeScript的核心原則之一是對值所具有的*結構*進行類型檢查。
+它有時被稱做“鴨式辨型法”或“結構性子類型化”。
+在TypeScript裡，接口的作用就是為這些類型命名和為你的代碼或第三方代碼定義契約。
 
 # 接口初探
 
-下面通过一个简单示例来观察接口是如何工作的：
+下面通過一個簡單示例來觀察接口是如何工作的：
 
 ```ts
 function printLabel(labelledObj: { label: string }) {
@@ -17,12 +17,12 @@ let myObj = { size: 10, label: "Size 10 Object" };
 printLabel(myObj);
 ```
 
-类型检查器会查看`printLabel`的调用。
-`printLabel`有一个参数，并要求这个对象参数有一个名为`label`类型为`string`的属性。
-需要注意的是，我们传入的对象参数实际上会包含很多属性，但是编译器只会检查那些必需的属性是否存在，并且其类型是否匹配。
-然而，有些时候TypeScript却并不会这么宽松，我们下面会稍做讲解。
+類型檢查器會查看`printLabel`的調用。
+`printLabel`有一個參數，並要求這個對象參數有一個名為`label`類型為`string`的屬性。
+需要注意的是，我們傳入的對象參數實際上會包含很多屬性，但是編譯器只會檢查那些必需的屬性是否存在，並且其類型是否匹配。
+然而，有些時候TypeScript卻並不會這麼寬鬆，我們下面會稍做講解。
 
-下面我们重写上面的例子，这次使用接口来描述：必须包含一个`label`属性且类型为`string`：
+下面我們重寫上面的例子，這次使用接口來描述：必須包含一個`label`屬性且類型為`string`：
 
 ```ts
 interface LabelledValue {
@@ -37,20 +37,20 @@ let myObj = {size: 10, label: "Size 10 Object"};
 printLabel(myObj);
 ```
 
-`LabelledValue`接口就好比一个名字，用来描述上面例子里的要求。
-它代表了有一个`label`属性且类型为`string`的对象。
-需要注意的是，我们在这里并不能像在其它语言里一样，说传给`printLabel`的对象实现了这个接口。我们只会去关注值的外形。
-只要传入的对象满足上面提到的必要条件，那么它就是被允许的。
+`LabelledValue`接口就好比一個名字，用來描述上面例子裡的要求。
+它代表了有一個`label`屬性且類型為`string`的對象。
+需要注意的是，我們在這裡並不能像在其它語言裡一樣，說傳給`printLabel`的對象實現了這個接口。我們只會去關注值的外形。
+只要傳入的對象滿足上面提到的必要條件，那麼它就是被允許的。
 
-还有一点值得提的是，类型检查器不会去检查属性的顺序，只要相应的属性存在并且类型也是对的就可以。
+還有一點值得提的是，類型檢查器不會去檢查屬性的順序，只要相應的屬性存在並且類型也是對的就可以。
 
-# 可选属性
+# 可選屬性
 
-接口里的属性不全都是必需的。
-有些是只在某些条件下存在，或者根本不存在。
-可选属性在应用“option bags”模式时很常用，即给函数传入的参数对象中只有部分属性赋值了。
+接口裡的屬性不全都是必需的。
+有些是只在某些條件下存在，或者根本不存在。
+可選屬性在應用“option bags”模式時很常用，即給函數傳入的參數對象中只有部分屬性賦值了。
 
-下面是应用了“option bags”的例子：
+下面是應用了“option bags”的例子：
 
 ```ts
 interface SquareConfig {
@@ -72,10 +72,10 @@ function createSquare(config: SquareConfig): {color: string; area: number} {
 let mySquare = createSquare({color: "black"});
 ```
 
-带有可选属性的接口与普通的接口定义差不多，只是在可选属性名字定义的后面加一个`?`符号。
+帶有可選屬性的接口與普通的接口定義差不多，只是在可選屬性名字定義的後面加一個`?`符號。
 
-可选属性的好处之一是可以对可能存在的属性进行预定义，好处之二是可以捕获引用了不存在的属性时的错误。
-比如，我们故意将`createSquare`里的`color`属性名拼错，就会得到一个错误提示：
+可選屬性的好處之一是可以對可能存在的屬性進行預定義，好處之二是可以捕獲引用了不存在的屬性時的錯誤。
+比如，我們故意將`createSquare`裡的`color`屬性名拼錯，就會得到一個錯誤提示：
 
 ```ts
 interface SquareConfig {
@@ -98,10 +98,10 @@ function createSquare(config: SquareConfig): { color: string; area: number } {
 let mySquare = createSquare({color: "black"});
 ```
 
-# 只读属性
+# 只讀屬性
 
-一些对象属性只能在对象刚刚创建的时候修改其值。
-你可以在属性名前用`readonly`来指定只读属性:
+一些對象屬性只能在對象剛剛創建的時候修改其值。
+你可以在屬性名前用`readonly`來指定只讀屬性:
 
 ```ts
 interface Point {
@@ -110,15 +110,15 @@ interface Point {
 }
 ```
 
-你可以通过赋值一个对象字面量来构造一个`Point`。
-赋值后，`x`和`y`再也不能被改变了。
+你可以通過賦值一個對象字面量來構造一個`Point`。
+賦值後，`x`和`y`再也不能被改變了。
 
 ```ts
 let p1: Point = { x: 10, y: 20 };
 p1.x = 5; // error!
 ```
 
-TypeScript具有`ReadonlyArray<T>`类型，它与`Array<T>`相似，只是把所有可变方法去掉了，因此可以确保数组创建后再也不能被修改：
+TypeScript具有`ReadonlyArray<T>`類型，它與`Array<T>`相似，只是把所有可變方法去掉了，因此可以確保數組創建後再也不能被修改：
 
 ```ts
 let a: number[] = [1, 2, 3, 4];
@@ -129,8 +129,8 @@ ro.length = 100; // error!
 a = ro; // error!
 ```
 
-上面代码的最后一行，可以看到就算把整个`ReadonlyArray`赋值到一个普通数组也是不可以的。
-但是你可以用类型断言重写：
+上面代碼的最後一行，可以看到就算把整個`ReadonlyArray`賦值到一個普通數組也是不可以的。
+但是你可以用類型斷言重寫：
 
 ```ts
 a = ro as number[];
@@ -138,16 +138,16 @@ a = ro as number[];
 
 ## `readonly` vs `const`
 
-最简单判断该用`readonly`还是`const`的方法是看要把它做为变量使用还是做为一个属性。
-做为变量使用的话用`const`，若做为属性则使用`readonly`。
+最簡單判斷該用`readonly`還是`const`的方法是看要把它做為變量使用還是做為一個屬性。
+做為變量使用的話用`const`，若做為屬性則使用`readonly`。
 
-# 额外的属性检查
+# 額外的屬性檢查
 
-我们在第一个例子里使用了接口，TypeScript让我们传入`{ size: number; label: string; }`到仅期望得到`{ label: string; }`的函数里。
-我们已经学过了可选属性，并且知道他们在“option bags”模式里很有用。
+我們在第一個例子裡使用了接口，TypeScript讓我們傳入`{ size: number; label: string; }`到僅期望得到`{ label: string; }`的函數裡。
+我們已經學過了可選屬性，並且知道他們在“option bags”模式裡很有用。
 
-然而，天真地将这两者结合的话就会像在JavaScript里那样搬起石头砸自己的脚。
-比如，拿`createSquare`例子来说：
+然而，天真地將這兩者結合的話就會像在JavaScript裡那樣搬起石頭砸自己的腳。
+比如，拿`createSquare`例子來說：
 
 ```ts
 interface SquareConfig {
@@ -162,29 +162,29 @@ function createSquare(config: SquareConfig): { color: string; area: number } {
 let mySquare = createSquare({ colour: "red", width: 100 });
 ```
 
-注意传入`createSquare`的参数拼写为`colour`而不是`color`。
-在JavaScript里，这会默默地失败。
+注意傳入`createSquare`的參數拼寫為`colour`而不是`color`。
+在JavaScript裡，這會默默地失敗。
 
-你可能会争辩这个程序已经正确地类型化了，因为`width`属性是兼容的，不存在`color`属性，而且额外的`colour`属性是无意义的。
+你可能會爭辯這個程序已經正確地類型化了，因為`width`屬性是兼容的，不存在`color`屬性，而且額外的`colour`屬性是無意義的。
 
-然而，TypeScript会认为这段代码可能存在bug。
-对象字面量会被特殊对待而且会经过*额外属性检查*，当将它们赋值给变量或作为参数传递的时候。
-如果一个对象字面量存在任何“目标类型”不包含的属性时，你会得到一个错误。
+然而，TypeScript會認為這段代碼可能存在bug。
+對象字面量會被特殊對待而且會經過*額外屬性檢查*，當將它們賦值給變量或作為參數傳遞的時候。
+如果一個對象字面量存在任何“目標類型”不包含的屬性時，你會得到一個錯誤。
 
 ```ts
 // error: 'colour' not expected in type 'SquareConfig'
 let mySquare = createSquare({ colour: "red", width: 100 });
 ```
 
-绕开这些检查非常简单。
-最简便的方法是使用类型断言：
+繞開這些檢查非常簡單。
+最簡便的方法是使用類型斷言：
 
 ```ts
 let mySquare = createSquare({ width: 100, opacity: 0.5 } as SquareConfig);
 ```
 
-然而，最佳的方式是能够添加一个字符串索引签名，前提是你能够确定这个对象可能具有某些做为特殊用途使用的额外属性。
-如果`SquareConfig`带有上面定义的类型的`color`和`width`属性，并且*还会*带有任意数量的其它属性，那么我们可以这样定义它：
+然而，最佳的方式是能夠添加一個字符串索引簽名，前提是你能夠確定這個對象可能具有某些做為特殊用途使用的額外屬性。
+如果`SquareConfig`帶有上面定義的類型的`color`和`width`屬性，並且*還會*帶有任意數量的其它屬性，那麼我們可以這樣定義它：
 
 ```ts
 interface SquareConfig {
@@ -194,28 +194,28 @@ interface SquareConfig {
 }
 ```
 
-我们稍后会讲到索引签名，但在这我们要表示的是`SquareConfig`可以有任意数量的属性，并且只要它们不是`color`和`width`，那么就无所谓它们的类型是什么。
+我們稍後會講到索引簽名，但在這我們要表示的是`SquareConfig`可以有任意數量的屬性，並且只要它們不是`color`和`width`，那麼就無所謂它們的類型是什麼。
 
-还有最后一种跳过这些检查的方式，这可能会让你感到惊讶，它就是将这个对象赋值给一个另一个变量：
-因为`squareOptions`不会经过额外属性检查，所以编译器不会报错。
+還有最後一種跳過這些檢查的方式，這可能會讓你感到驚訝，它就是將這個對象賦值給一個另一個變量：
+因為`squareOptions`不會經過額外屬性檢查，所以編譯器不會報錯。
 
 ```ts
 let squareOptions = { colour: "red", width: 100 };
 let mySquare = createSquare(squareOptions);
 ```
 
-要留意，在像上面一样的简单代码里，你可能不应该去绕开这些检查。
-对于包含方法和内部状态的复杂对象字面量来讲，你可能需要使用这些技巧，但是大部额外属性检查错误是真正的bug。
-就是说你遇到了额外类型检查出的错误，比如“option bags”，你应该去审查一下你的类型声明。
-在这里，如果支持传入`color`或`colour`属性到`createSquare`，你应该修改`SquareConfig`定义来体现出这一点。
+要留意，在像上面一樣的簡單代碼裡，你可能不應該去繞開這些檢查。
+對於包含方法和內部狀態的複雜對象字面量來講，你可能需要使用這些技巧，但是大部額外屬性檢查錯誤是真正的bug。
+就是說你遇到了額外類型檢查出的錯誤，比如“option bags”，你應該去審查一下你的類型聲明。
+在這裡，如果支持傳入`color`或`colour`屬性到`createSquare`，你應該修改`SquareConfig`定義來體現出這一點。
 
-# 函数类型
+# 函數類型
 
-接口能够描述JavaScript中对象拥有的各种各样的外形。
-除了描述带有属性的普通对象外，接口也可以描述函数类型。
+接口能夠描述JavaScript中對象擁有的各種各樣的外形。
+除了描述帶有屬性的普通對象外，接口也可以描述函數類型。
 
-为了使用接口表示函数类型，我们需要给接口定义一个调用签名。
-它就像是一个只有参数列表和返回值类型的函数定义。参数列表里的每个参数都需要名字和类型。
+為了使用接口表示函數類型，我們需要給接口定義一個調用簽名。
+它就像是一個只有參數列表和返回值類型的函數定義。參數列表裡的每個參數都需要名字和類型。
 
 ```ts
 interface SearchFunc {
@@ -223,8 +223,8 @@ interface SearchFunc {
 }
 ```
 
-这样定义后，我们可以像使用其它接口一样使用这个函数类型的接口。
-下例展示了如何创建一个函数类型的变量，并将一个同类型的函数赋值给这个变量。
+這樣定義後，我們可以像使用其它接口一樣使用這個函數類型的接口。
+下例展示了如何創建一個函數類型的變量，並將一個同類型的函數賦值給這個變量。
 
 ```ts
 let mySearch: SearchFunc;
@@ -234,8 +234,8 @@ mySearch = function(source: string, subString: string) {
 }
 ```
 
-对于函数类型的类型检查来说，函数的参数名不需要与接口里定义的名字相匹配。
-比如，我们使用下面的代码重写上面的例子：
+對於函數類型的類型檢查來說，函數的參數名不需要與接口裡定義的名字相匹配。
+比如，我們使用下面的代碼重寫上面的例子：
 
 ```ts
 let mySearch: SearchFunc;
@@ -245,10 +245,10 @@ mySearch = function(src: string, sub: string): boolean {
 }
 ```
 
-函数的参数会逐个进行检查，要求对应位置上的参数类型是兼容的。
-如果你不想指定类型，TypeScript的类型系统会推断出参数类型，因为函数直接赋值给了`SearchFunc`类型变量。
-函数的返回值类型是通过其返回值推断出来的（此例是`false`和`true`）。
-如果让这个函数返回数字或字符串，类型检查器会警告我们函数的返回值类型与`SearchFunc`接口中的定义不匹配。
+函數的參數會逐個進行檢查，要求對應位置上的參數類型是兼容的。
+如果你不想指定類型，TypeScript的類型系統會推斷出參數類型，因為函數直接賦值給了`SearchFunc`類型變量。
+函數的返回值類型是通過其返回值推斷出來的（此例是`false`和`true`）。
+如果讓這個函數返回數字或字符串，類型檢查器會警告我們函數的返回值類型與`SearchFunc`接口中的定義不匹配。
 
 ```ts
 let mySearch: SearchFunc;
@@ -258,11 +258,11 @@ mySearch = function(src, sub) {
 }
 ```
 
-# 可索引的类型
+# 可索引的類型
 
-与使用接口描述函数类型差不多，我们也可以描述那些能够“通过索引得到”的类型，比如`a[10]`或`ageMap["daniel"]`。
-可索引类型具有一个*索引签名*，它描述了对象索引的类型，还有相应的索引返回值类型。
-让我们看一个例子：
+與使用接口描述函數類型差不多，我們也可以描述那些能夠“通過索引得到”的類型，比如`a[10]`或`ageMap["daniel"]`。
+可索引類型具有一個*索引簽名*，它描述了對象索引的類型，還有相應的索引返回值類型。
+讓我們看一個例子：
 
 ```ts
 interface StringArray {
@@ -275,13 +275,13 @@ myArray = ["Bob", "Fred"];
 let myStr: string = myArray[0];
 ```
 
-上面例子里，我们定义了`StringArray`接口，它具有索引签名。
-这个索引签名表示了当用`number`去索引`StringArray`时会得到`string`类型的返回值。
+上面例子裡，我們定義了`StringArray`接口，它具有索引簽名。
+這個索引簽名表示了當用`number`去索引`StringArray`時會得到`string`類型的返回值。
 
-Typescript支持两种索引签名：字符串和数字。
-可以同时使用两种类型的索引，但是数字索引的返回值必须是字符串索引返回值类型的子类型。
-这是因为当使用`number`来索引时，JavaScript会将它转换成`string`然后再去索引对象。
-也就是说用`100`（一个`number`）去索引等同于使用`"100"`（一个`string`）去索引，因此两者需要保持一致。
+Typescript支持兩種索引簽名：字符串和數字。
+可以同時使用兩種類型的索引，但是數字索引的返回值必須是字符串索引返回值類型的子類型。
+這是因為當使用`number`來索引時，JavaScript會將它轉換成`string`然後再去索引對象。
+也就是說用`100`（一個`number`）去索引等同於使用`"100"`（一個`string`）去索引，因此兩者需要保持一致。
 
 ```ts
 class Animal {
@@ -291,26 +291,26 @@ class Dog extends Animal {
     breed: string;
 }
 
-// 错误：使用数值型的字符串索引，有时会得到完全不同的Animal!
+// 錯誤：使用數值型的字符串索引，有時會得到完全不同的Animal!
 interface NotOkay {
     [x: number]: Animal;
     [x: string]: Dog;
 }
 ```
 
-字符串索引签名能够很好的描述`dictionary`模式，并且它们也会确保所有属性与其返回值类型相匹配。
-因为字符串索引声明了`obj.property`和`obj["property"]`两种形式都可以。
-下面的例子里，`name`的类型与字符串索引类型不匹配，所以类型检查器给出一个错误提示：
+字符串索引簽名能夠很好的描述`dictionary`模式，並且它們也會確保所有屬性與其返回值類型相匹配。
+因為字符串索引聲明了`obj.property`和`obj["property"]`兩種形式都可以。
+下面的例子裡，`name`的類型與字符串索引類型不匹配，所以類型檢查器給出一個錯誤提示：
 
 ```ts
 interface NumberDictionary {
   [index: string]: number;
-  length: number;    // 可以，length是number类型
-  name: string       // 错误，`name`的类型与索引类型返回值的类型不匹配
+  length: number;    // 可以，length是number類型
+  name: string       // 錯誤，`name`的類型與索引類型返回值的類型不匹配
 }
 ```
 
-最后，你可以将索引签名设置为只读，这样就防止了给索引赋值：
+最後，你可以將索引簽名設置為只讀，這樣就防止了給索引賦值：
 
 ```ts
 interface ReadonlyStringArray {
@@ -320,13 +320,13 @@ let myArray: ReadonlyStringArray = ["Alice", "Bob"];
 myArray[2] = "Mallory"; // error!
 ```
 
-你不能设置`myArray[2]`，因为索引签名是只读的。
+你不能設置`myArray[2]`，因為索引簽名是只讀的。
 
-# 类类型
+# 類類型
 
-## 实现接口
+## 實現接口
 
-与C#或Java里接口的基本作用一样，TypeScript也能够用它来明确的强制一个类去符合某种契约。
+與C#或Java裡接口的基本作用一樣，TypeScript也能夠用它來明確的強制一個類去符合某種契約。
 
 ```ts
 interface ClockInterface {
@@ -339,7 +339,7 @@ class Clock implements ClockInterface {
 }
 ```
 
-你也可以在接口中描述一个方法，在类里实现它，如同下面的`setTime`方法一样：
+你也可以在接口中描述一個方法，在類裡實現它，如同下面的`setTime`方法一樣：
 
 ```ts
 interface ClockInterface {
@@ -356,13 +356,13 @@ class Clock implements ClockInterface {
 }
 ```
 
-接口描述了类的公共部分，而不是公共和私有两部分。
-它不会帮你检查类是否具有某些私有成员。
+接口描述了類的公共部分，而不是公共和私有兩部分。
+它不會幫你檢查類是否具有某些私有成員。
 
-## 类静态部分与实例部分的区别
+## 類靜態部分與實例部分的區別
 
-当你操作类和接口的时候，你要知道类是具有两个类型的：静态部分的类型和实例的类型。
-你会注意到，当你用构造器签名去定义一个接口并试图定义一个类去实现这个接口时会得到一个错误：
+當你操作類和接口的時候，你要知道類是具有兩個類型的：靜態部分的類型和實例的類型。
+你會注意到，當你用構造器簽名去定義一個接口並試圖定義一個類去實現這個接口時會得到一個錯誤：
 
 ```ts
 interface ClockConstructor {
@@ -375,12 +375,12 @@ class Clock implements ClockConstructor {
 }
 ```
 
-这里因为当一个类实现了一个接口时，只对其实例部分进行类型检查。
-constructor存在于类的静态部分，所以不在检查的范围内。
+這裡因為當一個類實現了一個接口時，只對其實例部分進行類型檢查。
+constructor存在於類的靜態部分，所以不在檢查的範圍內。
 
-因此，我们应该直接操作类的静态部分。
-看下面的例子，我们定义了两个接口，`ClockConstructor`为构造函数所用和`ClockInterface`为实例方法所用。
-为了方便我们定义一个构造函数`createClock`，它用传入的类型创建实例。
+因此，我們應該直接操作類的靜態部分。
+看下面的例子，我們定義了兩個接口，`ClockConstructor`為構造函數所用和`ClockInterface`為實例方法所用。
+為了方便我們定義一個構造函數`createClock`，它用傳入的類型創建實例。
 
 ```ts
 interface ClockConstructor {
@@ -411,12 +411,12 @@ let digital = createClock(DigitalClock, 12, 17);
 let analog = createClock(AnalogClock, 7, 32);
 ```
 
-因为`createClock`的第一个参数是`ClockConstructor`类型，在`createClock(AnalogClock, 7, 32)`里，会检查`AnalogClock`是否符合构造函数签名。
+因為`createClock`的第一個參數是`ClockConstructor`類型，在`createClock(AnalogClock, 7, 32)`裡，會檢查`AnalogClock`是否符合構造函數簽名。
 
-# 继承接口
+# 繼承接口
 
-和类一样，接口也可以相互继承。
-这让我们能够从一个接口里复制成员到另一个接口里，可以更灵活地将接口分割到可重用的模块里。
+和類一樣，接口也可以相互繼承。
+這讓我們能夠從一個接口裡複製成員到另一個接口裡，可以更靈活地將接口分割到可重用的模塊裡。
 
 ```ts
 interface Shape {
@@ -432,7 +432,7 @@ square.color = "blue";
 square.sideLength = 10;
 ```
 
-一个接口可以继承多个接口，创建出多个接口的合成接口。
+一個接口可以繼承多個接口，創建出多個接口的合成接口。
 
 ```ts
 interface Shape {
@@ -453,12 +453,12 @@ square.sideLength = 10;
 square.penWidth = 5.0;
 ```
 
-# 混合类型
+# 混合類型
 
-先前我们提过，接口能够描述JavaScript里丰富的类型。
-因为JavaScript其动态灵活的特点，有时你会希望一个对象可以同时具有上面提到的多种类型。
+先前我們提過，接口能夠描述JavaScript裡豐富的類型。
+因為JavaScript其動態靈活的特點，有時你會希望一個對象可以同時具有上面提到的多種類型。
 
-一个例子就是，一个对象可以同时做为函数和对象使用，并带有额外的属性。
+一個例子就是，一個對象可以同時做為函數和對象使用，並帶有額外的屬性。
 
 ```ts
 interface Counter {
@@ -480,17 +480,17 @@ c.reset();
 c.interval = 5.0;
 ```
 
-在使用JavaScript第三方库的时候，你可能需要像上面那样去完整地定义类型。
+在使用JavaScript第三方庫的時候，你可能需要像上面那樣去完整地定義類型。
 
-# 接口继承类
+# 接口繼承類
 
-当接口继承了一个类类型时，它会继承类的成员但不包括其实现。
-就好像接口声明了所有类中存在的成员，但并没有提供具体实现一样。
-接口同样会继承到类的private和protected成员。
-这意味着当你创建了一个接口继承了一个拥有私有或受保护的成员的类时，这个接口类型只能被这个类或其子类所实现（implement）。
+當接口繼承了一個類類型時，它會繼承類的成員但不包括其實現。
+就好像接口聲明了所有類中存在的成員，但並沒有提供具體實現一樣。
+接口同樣會繼承到類的private和protected成員。
+這意味著當你創建了一個接口繼承了一個擁有私有或受保護的成員的類時，這個接口類型只能被這個類或其子類所實現（implement）。
 
-当你有一个庞大的继承结构时这很有用，但要指出的是你的代码只在子类拥有特定属性时起作用。
-除了继承自基类，子类之间不必相关联。
+當你有一個龐大的繼承結構時這很有用，但要指出的是你的代碼只在子類擁有特定屬性時起作用。
+除了繼承自基類，子類之間不必相關聯。
 例：
 
 ```ts
@@ -520,10 +520,10 @@ class Location {
 }
 ```
 
-在上面的例子里，`SelectableControl`包含了`Control`的所有成员，包括私有成员`state`。
-因为`state`是私有成员，所以只能够是`Control`的子类们才能实现`SelectableControl`接口。
-因为只有`Control`的子类才能够拥有一个声明于`Control`的私有成员`state`，这对私有成员的兼容性是必需的。
+在上面的例子裡，`SelectableControl`包含了`Control`的所有成員，包括私有成員`state`。
+因為`state`是私有成員，所以只能夠是`Control`的子類們才能實現`SelectableControl`接口。
+因為只有`Control`的子類才能夠擁有一個聲明於`Control`的私有成員`state`，這對私有成員的兼容性是必需的。
 
-在`Control`类内部，是允许通过`SelectableControl`的实例来访问私有成员`state`的。
-实际上，`SelectableControl`就像`Control`一样，并拥有一个`select`方法。
-`Button`和`TextBox`类是`SelectableControl`的子类（因为它们都继承自`Control`并有`select`方法），但`Image`和`Location`类并不是这样的。
+在`Control`類內部，是允許通過`SelectableControl`的實例來訪問私有成員`state`的。
+實際上，`SelectableControl`就像`Control`一樣，並擁有一個`select`方法。
+`Button`和`TextBox`類是`SelectableControl`的子類（因為它們都繼承自`Control`並有`select`方法），但`Image`和`Location`類並不是這樣的。

@@ -1,1 +1,1 @@
-> ## 本页面被移动到[书写声明文件](./declaration files/Introduction.md)页
+> ## 本頁面被移動到[書寫聲明文件](./declaration files/Introduction.md)頁

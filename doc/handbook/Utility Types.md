@@ -1,8 +1,8 @@
-# 介绍
+# 介紹
 
-TypeScript提供一些工具类型来帮助常见的类型转换。这些类型是全局可见的。
+TypeScript提供一些工具類型來幫助常見的類型轉換。這些類型是全局可見的。
 
-## 目录
+## 目錄
 
 * [`Partial<T>`，TypeScript 2.1](#partialt)
 * [`Readonly<T>`，TypeScript 2.1](#readonlyt)
@@ -18,7 +18,7 @@ TypeScript提供一些工具类型来帮助常见的类型转换。这些类型�
 
 ## `Partial<T>`
 
-构造类型`T`，并将它所有的属性设置为可选的。它的返回类型表示输入类型的所有子类型。
+構造類型`T`，並將它所有的屬性設置為可選的。它的返回類型表示輸入類型的所有子類型。
 
 ### 例子
 
@@ -44,7 +44,7 @@ const todo2 = updateTodo(todo1, {
 
 ## `Readonly<T>`
 
-构造类型`T`，并将它所有的属性设置为`readonly`，也就是说构造出的类型的属性不能被再次赋值。
+構造類型`T`，並將它所有的屬性設置為`readonly`，也就是說構造出的類型的屬性不能被再次賦值。
 
 ### 例子
 
@@ -60,7 +60,7 @@ const todo: Readonly<Todo> = {
 todo.title = 'Hello'; // Error: cannot reassign a readonly property
 ```
 
-这个工具可用来表示在运行时会失败的赋值表达式（比如，当尝试给[冻结对象](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)的属性再次赋值时）。
+這個工具可用來表示在運行時會失敗的賦值表達式（比如，當嘗試給[凍結對象](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)的屬性再次賦值時）。
 
 ### `Object.freeze`
 
@@ -70,7 +70,7 @@ function freeze<T>(obj: T): Readonly<T>;
 
 ## `Record<K,T>`
 
-构造一个类型，其属性名的类型为`K`，属性值的类型为`T`。这个工具可用来将某个类型的属性映射到另一个类型上。
+構造一個類型，其屬性名的類型為`K`，屬性值的類型為`T`。這個工具可用來將某個類型的屬性映射到另一個類型上。
 
 ### 例子
 
@@ -90,7 +90,7 @@ const x: Record<Page, PageInfo> = {
 
 ## `Pick<T,K>`
 
-从类型`T`中挑选部分属性`K`来构造类型。
+從類型`T`中挑選部分屬性`K`來構造類型。
 
 ### 例子
 
@@ -111,7 +111,7 @@ const todo: TodoPreview = {
 
 ## `Exclude<T,U>`
 
-从类型`T`中剔除所有可以赋值给`U`的属性，然后构造一个类型。
+從類型`T`中剔除所有可以賦值給`U`的屬性，然後構造一個類型。
 
 ### 例子
 
@@ -123,7 +123,7 @@ type T2 = Exclude<string | number | (() => void), Function>;  // string | number
 
 ## `Extract<T,U>`
 
-从类型`T`中提取所有可以赋值给`U`的类型，然后构造一个类型。
+從類型`T`中提取所有可以賦值給`U`的類型，然後構造一個類型。
 
 ### 例子
 
@@ -134,7 +134,7 @@ type T1 = Extract<string | number | (() => void), Function>;  // () => void
 
 ## `NonNullable<T>`
 
-从类型`T`中剔除`null`和`undefined`，然后构造一个类型。
+從類型`T`中剔除`null`和`undefined`，然後構造一個類型。
 
 ### 例子
 
@@ -145,7 +145,7 @@ type T1 = NonNullable<string[] | null | undefined>;  // string[]
 
 ## `ReturnType<T>`
 
-由函数类型`T`的返回值类型构造一个类型。
+由函數類型`T`的返回值類型構造一個類型。
 
 ### 例子
 
@@ -163,7 +163,7 @@ type T8 = ReturnType<Function>;  // Error
 
 ## `InstanceType<T>`
 
-由构造函数类型`T`的实例类型构造一个类型。
+由構造函數類型`T`的實例類型構造一個類型。
 
 ### 例子
 
@@ -182,7 +182,7 @@ type T4 = InstanceType<Function>;  // Error
 
 ## `Required<T>`
 
-构造一个类型，使类型`T`的所有属性为`required`。
+構造一個類型，使類型`T`的所有屬性為`required`。
 
 ### 例子
 
@@ -199,7 +199,7 @@ const obj2: Required<Props> = { a: 5 }; // Error: property 'b' missing
 
 ## `ThisType<T>`
 
-这个工具不会返回一个转换后的类型。它做为上下文的`this`类型的一个标记。注意，若想使用此类型，必须启用`--noImplicitThis`。
+這個工具不會返回一個轉換後的類型。它做為上下文的`this`類型的一個標記。注意，若想使用此類型，必須啟用`--noImplicitThis`。
 
 ### 例子
 
@@ -232,6 +232,6 @@ obj.y = 20;
 obj.moveBy(5, 5);
 ```
 
-上面例子中，`makeObject`参数里的`methods`对象具有一个上下文类型`ThisType<D & M>`，因此`methods`对象的方法里`this`的类型为`{ x: number, y: number } & { moveBy(dx: number, dy: number): number }`。
+上面例子中，`makeObject`參數里的`methods`對象具有一個上下文類型`ThisType<D & M>`，因此`methods`對象的方法裡`this`的類型為`{ x: number, y: number } & { moveBy(dx: number, dy: number): number }`。
 
-在`lib.d.ts`里，`ThisType<T>`标识接口是个简单的空接口声明。除了在被识别为对象字面量的上下文类型之外，这个接口与一般的空接口没有什么不同。
+在`lib.d.ts`裡，`ThisType<T>`標識接口是個簡單的空接口聲明。除了在被識別為對象字面量的上下文類型之外，這個接口與一般的空接口沒有什麼不同。
