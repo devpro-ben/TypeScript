@@ -33,7 +33,7 @@
   * [類別](./doc/handbook/Classes.md)
   * [函數](./doc/handbook/Functions.md)
   * [泛型](./doc/handbook/Generics.md)
-  * [枚舉](./doc/handbook/Enums.md)
+  * [列舉](./doc/handbook/Enums.md)
   * [類型推論](./doc/handbook/Type%20Inference.md)
   * [類型兼容性](./doc/handbook/Type%20Compatibility.md)
   * [高級類型](./doc/handbook/Advanced%20Types.md)
