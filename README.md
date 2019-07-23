@@ -34,7 +34,7 @@
   * [函數](./doc/handbook/Functions.md)
   * [泛型](./doc/handbook/Generics.md)
   * [列舉](./doc/handbook/Enums.md)
-  * [類型推論](./doc/handbook/Type%20Inference.md)
+  * [型別推論](./doc/handbook/Type%20Inference.md)
   * [類型兼容性](./doc/handbook/Type%20Compatibility.md)
   * [高級類型](./doc/handbook/Advanced%20Types.md)
   * [實用工具類型](./doc/handbook/Utility%20Types.md)
