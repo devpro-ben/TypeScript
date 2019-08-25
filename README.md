@@ -36,7 +36,7 @@
   * [列舉](./doc/handbook/Enums.md)
   * [型別推論](./doc/handbook/Type%20Inference.md)
   * [型別相容性](./doc/handbook/Type%20Compatibility.md)
-  * [高級類型](./doc/handbook/Advanced%20Types.md)
+  * [高級型別](./doc/handbook/Advanced%20Types.md)
   * [實用工具類型](./doc/handbook/Utility%20Types.md)
   * [Symbols](./doc/handbook/Symbols.md)
   * [Iterators 和 Generators](./doc/handbook/Iterators%20and%20Generators.md)
