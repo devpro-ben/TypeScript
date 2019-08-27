@@ -42,7 +42,7 @@
   * [Iterators 和 Generators](./doc/handbook/Iterators%20and%20Generators.md)
   * [模組](./doc/handbook/Modules.md)
   * [命名空間](./doc/handbook/Namespaces.md)
-  * [命名空間和模塊](./doc/handbook/Namespaces%20and%20Modules.md)
+  * [命名空間和模組](./doc/handbook/Namespaces%20and%20Modules.md)
   * [模塊解析](./doc/handbook/Module%20Resolution.md)
   * [聲明合併](./doc/handbook/Declaration%20Merging.md)
   * [書寫.d.ts文件](./doc/handbook/Writing%20Definition%20Files.md)
