@@ -40,7 +40,7 @@
   * [實用工具型別](./doc/handbook/Utility%20Types.md)
   * [Symbols](./doc/handbook/Symbols.md)
   * [Iterators 和 Generators](./doc/handbook/Iterators%20and%20Generators.md)
-  * [模塊](./doc/handbook/Modules.md)
+  * [模組](./doc/handbook/Modules.md)
   * [命名空間](./doc/handbook/Namespaces.md)
   * [命名空間和模塊](./doc/handbook/Namespaces%20and%20Modules.md)
   * [模塊解析](./doc/handbook/Module%20Resolution.md)
